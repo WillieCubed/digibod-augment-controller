@@ -14,4 +14,9 @@ TODO: Complete hardware description and diagrams
 ### Software
 This project is made using the Arduino IDE.
 
+This project uses a port of the C++ standard library for Arduino found
+[here](https://github.com/VioletGiraffe/StandardCplusplus). Download the library
+in zip form, and add it as a library in the Arduino IDE (Sketch > Include Library >
+Include .ZIP Library).
+
 TODO: Finish README
