@@ -1,0 +1,7 @@
+{
+    "programmer": "AVR ISP",
+    "board": "arduino:avr:uno",
+    "port": "COM5",
+    "sketch": "src\\augment_controller\\augment_controller.ino",
+    "output": "build\\"
+}
