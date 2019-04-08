@@ -1,14 +1,8 @@
-#include <StandardCplusplus.h>
-#include <system_configuration.h>
-#include <unwind-cxx.h>
-
 #include <Wire.h>
-#include <string>
+#include <ArduinoJson.h>
+#include <DS3231.h>
 
-const int xpin = 1; // x-axis of the accelerometer
-const int ypin = 2; // y-axis
-const int zpin = 3; // z-axis (only on 3-axis models)
-
+#include "utils.h"
 const uint8_t AUGMENT_HUB_I2C_ADDRESS = 0x16;
 const uint8_t ACC_1_I2C_ADDRESS = 0x68;
 const uint8_t ACC_2_I2C_ADDRESS = 0x69;
