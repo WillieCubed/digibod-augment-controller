@@ -49,12 +49,65 @@ struct AccelerometerSnapshot
     float z;
 };
 
-public:
-  ConnectionManager()
-  {
+// A single recording of flex sensor reistance.
+struct FlexSensorSnapshot
+{
+    float resistance;
+};
 
-    // Start observing I2C
-  }
+// A single recording of tilt sensor bias.
+struct TiltSensorSnapshot
+{
+    float resistance;
+};
+
+// A single recording of brightness data.
+struct LightSensorSnapshot
+{
+    float value;
+};
+
+// A container for sensor data sent over I2C.
+struct AugmentSnapshot
+{
+    // An array with sensor values for each finger, size 5.
+    AccelerometerSnapshot *accelerometerSnap;
+    // A singular sensor value
+    FlexSensorSnapshot flexSnap;
+    TiltSensorSnapshot tiltSnap;
+    LightSensorSnapshot lightSnap;
+};
+
+// Data sent from the connected Augment Hub.
+//
+// Used for actions like:
+//  - Turning on or off data for training
+struct HubFeedback
+{
+    bool enableCollectionForTraining;
+};
+
+// Compiles all sensor data into a usable form.
+AugmentSnapshot getAugmentSnapshot()
+{
+    AugmentSnapshot snap = {};
+    // TODO: Handle multiple sensors
+    AccelerometerSnapshot accSnaps[5] = {};
+    for (int i = 0; i < 2; ++i) // Only the first two fingers use these sensors
+    {
+        AccelerometerSnapshot accSnap = {};
+        for (int j = 0; i < sizeof(FINGER_SENSORS_ANA_IDS); ++i)
+        {
+            accSnap.x = analogRead(FINGER_SENSORS_ANA_IDS[j][0]);
+            accSnap.y = analogRead(FINGER_SENSORS_ANA_IDS[j][1]);
+            accSnap.z = analogRead(FINGER_SENSORS_ANA_IDS[j][2]);
+        }
+    }
+    for (int i = 0; i < 2; ++i) {
+        // Now get the ones for I2C
+    }
+    return snap;
+}
 
   ~ConnectionManager()
   {
