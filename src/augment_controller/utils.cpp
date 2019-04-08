@@ -4,16 +4,18 @@
 #include <stdarg.h>
 #include <Arduino.h>
 
-int log(char *str, ...)
+#include "utils.h"
+
+int logme(const char *str, ...)
 {
-    int i, count = 0, j = 0, flag = 0;
+    int i, size = 0, j = 0, flag = 0;
     char temp[ARDBUFFER + 1];
     for (i = 0; str[i] != '\0'; i++)
         if (str[i] == '%')
-            count++;
+            size++;
 
     va_list argv;
-    va_start(argv, count);
+    va_start(argv, size);
     for (i = 0, j = 0; str[i] != '\0'; i++)
     {
         if (str[i] == '%')
@@ -56,7 +58,7 @@ int log(char *str, ...)
         }
     };
     Serial.println();
-    return count + 1;
+    return size + 1;
 }
 #undef ARDBUFFER
 #endif
