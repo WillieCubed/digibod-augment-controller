@@ -9,14 +9,45 @@ const int xpin = 1; // x-axis of the accelerometer
 const int ypin = 2; // y-axis
 const int zpin = 3; // z-axis (only on 3-axis models)
 
+const uint8_t AUGMENT_HUB_I2C_ADDRESS = 0x16;
+const uint8_t ACC_1_I2C_ADDRESS = 0x68;
+const uint8_t ACC_2_I2C_ADDRESS = 0x69;
 
-using namespace std;
+const uint8_t ANA_PIN_SEND_SNAPSHOT = 0;
+const uint8_t ANA_PIN_TILT_SWITCH = 1;
+const uint8_t ANA_PIN_BRIGHTNESS = 2;
+const uint8_t ANA_PIN_FLEX = 3;
 
-/**
- * For now, this uses I2C to send data back to the Augment Hub.
- */
-class ConnectionManager
+const uint8_t DIG_PIN_ACC_3_X = 0;
+const uint8_t DIG_PIN_ACC_3_Y = 1;
+const uint8_t DIG_PIN_ACC_3_Z = 2;
+const uint8_t DIG_PIN_ACC_4_X = 3;
+const uint8_t DIG_PIN_ACC_4_Y = 4;
+const uint8_t DIG_PIN_ACC_4_Z = 5;
+const uint8_t DIG_PIN_LED_R = 10;
+const uint8_t DIG_PIN_LED_G = 11;
+const uint8_t DIG_PIN_LED_B = 12;
+const uint8_t DIG_PIN_BUZZER = 13;
+
+const uint8_t FINGER_SENSORS_ANA_IDS[2][3] = {
+    {DIG_PIN_ACC_3_X,
+     DIG_PIN_ACC_3_Y,
+     DIG_PIN_ACC_3_Z},
+    {DIG_PIN_ACC_4_X,
+     DIG_PIN_ACC_4_Y,
+     DIG_PIN_ACC_4_Z}};
+
+const uint8_t *FINGER_SENSORS_I2C_IDS[2] = {ACC_1_I2C_ADDRESS, ACC_2_I2C_ADDRESS};
+
+bool constantCollectionEnabled = false;
+
+// A single recording of accelerometer data.
+struct AccelerometerSnapshot
 {
+    float x;
+    float y;
+    float z;
+};
 
 public:
   ConnectionManager()
@@ -52,10 +83,6 @@ public:
 private:
 };
 
-struct SensorSnapshot {
-  int x;
-  int y;
-  int z;
 }
 
 ConnectionManager manager;
